@@ -1,106 +1,521 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Basic -->
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Stock Market Basics – Join Free</title>
-  <meta name="description" content="100% free stock market education. Learn chart reading, technical analysis, and risk management. No buy/sell tips. For learning purpose only.">
-  <link rel="canonical" href="https://example.com/">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Trading Mentor ™️</title>
 
-  <!-- Performance -->
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1402641208602757');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1402641208602757&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
+
+  <!-- Google Fonts for Modern Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
-  <!-- Favicons (optional) -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="Stock Market Basics – Join Free">
-  <meta property="og:description" content="Learn charts & risk management. No buy/sell tips. 100% educational.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://example.com/">
-  <meta property="og:image" content="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1600&auto=format&fit=crop">
-
-  <!-- Minimal CSS (inline for speed) -->
   <style>
-    :root{
-      --bg1:#0c0c1d;
-      --bg2:#1a1a2b;
-      --brand: #ff6699;
-      --brand-2:#00f0ff;
-      --text:#ffffff;
-      --muted:#b5b5c3;
+    :root {
+      --bg-dark: #070a0e;
+      --card-bg: rgba(15, 23, 36, 0.75);
+      --primary-green: #00ff66;
+      --green-glow: rgba(0, 255, 102, 0.4);
+      --red-accent: #ff3366;
+      --text-main: #ffffff;
+      --text-muted: #94a3b8;
+      --border-color: rgba(255, 255, 255, 0.08);
     }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0}
-    body{
-      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color:var(--text);
-      background:
-        linear-gradient(135deg, rgba(0,0,0,.45), rgba(0,0,0,.45)),
-        url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1600&auto=format&fit=crop') no-repeat center/cover fixed;
-      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
-      min-height:100vh;
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     }
-    .container{
-      max-width:520px; margin:0 auto; padding:24px 18px; text-align:center; min-height:100vh; display:flex; flex-direction:column; justify-content:center;
-      backdrop-filter: saturate(130%);
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: var(--text-main);
+      background-color: var(--bg-dark);
+      position: relative;
+      overflow-x: hidden;
+      padding: 30px 15px;
     }
-    .badge{display:inline-block; font-size:.78rem; padding:6px 10px; border:1px solid #2a2a3a; border-radius:999px; color:#d6eaff; background:rgba(0,240,255,.08); margin-bottom:14px}
-    h1{font-size:1.9rem; line-height:1.2; margin:6px 0 10px; background:linear-gradient(90deg,var(--brand-2),var(--brand)); -webkit-background-clip:text; background-clip:text; color:transparent;}
-    .sub{font-size:1rem; color:var(--muted); margin:0 auto 16px; max-width:36ch}
-    .pill{
-      display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; background:rgba(0,255,153,.07); border:1px dashed rgba(0,255,153,.35); color:#d8ffe9; font-size:.9rem; margin:6px 0 18px;
+
+    /* Ambient Background Glows */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -10%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(0, 255, 102, 0.12) 0%, rgba(0,0,0,0) 70%);
+      pointer-events: none;
+      z-index: 0;
     }
-    ul.bullets{list-style:none; padding:0; margin:0 0 18px}
-    ul.bullets li{margin:8px 0; color:#e9eef9}
-    .cta{
-      display:inline-block; text-decoration:none; background:var(--brand); color:#041b14; padding:14px 18px; font-weight:700; border-radius:12px; box-shadow:0 0 0 0 rgba(0,255,153,.6); transform:translateZ(0);
-      transition:transform .15s ease;
-      animation:pulse 1.6s infinite;
+
+    /* Animated Background Container */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
     }
-    .cta:active{transform:scale(.98)}
-    @keyframes pulse{
-      0%{box-shadow:0 0 0 0 rgba(0,255,153,.55)}
-      70%{box-shadow:0 0 0 20px rgba(0,255,153,0)}
-      100%{box-shadow:0 0 0 0 rgba(0,255,153,0)}
+
+    /* Grid Line Movement */
+    .grid-overlay {
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      top: -50%;
+      left: -50%;
+      background-image: 
+        linear-gradient(rgba(0, 255, 102, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 102, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: gridMove 25s linear infinite;
     }
-    .fineprint{font-size:.86rem; color:var(--muted); margin:18px auto 0; max-width:44ch}
-    .disclaimer{font-size:.78rem; color:#9aa4b2; margin:18px auto 0; max-width:50ch}
-    .safe{display:flex; align-items:center; justify-content:center; gap:8px; margin-top:14px; color:#a1ffd6; font-size:.9rem}
-    .shield{width:18px; height:18px; display:inline-block; border-radius:4px; background:linear-gradient(135deg,#0df,#0f9)}
-    footer{opacity:.8; margin-top:22px; font-size:.78rem; color:#9aa4b2}
+
+    @keyframes gridMove {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(50px); }
+    }
+
+    /* Wave Line Animation */
+    .chart-wave {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0.35;
+    }
+
+    .wave-path {
+      fill: none;
+      stroke: var(--red-accent);
+      stroke-width: 3;
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+      animation: dash 4s ease-in-out infinite alternate, glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes dash {
+      from { stroke-dashoffset: 1000; }
+      to { stroke-dashoffset: 0; }
+    }
+
+    @keyframes glow {
+      from { filter: drop-shadow(0 0 2px var(--red-accent)); }
+      to { filter: drop-shadow(0 0 10px var(--red-accent)); }
+    }
+
+    /* Pulsing Green Candlesticks */
+    .candlestick {
+      animation: pulseBar 1.8s infinite alternate ease-in-out;
+    }
+
+    @keyframes pulseBar {
+      0% { opacity: 0.2; transform: scaleY(0.95); }
+      100% { opacity: 0.6; transform: scaleY(1.05); }
+    }
+
+    /* Layer Container Styling */
+    .container {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 420px;
+      padding: 32px 24px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 24px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 
+                  inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      margin-bottom: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .main-title {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      margin-bottom: 20px;
+      background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-transform: uppercase;
+    }
+
+    .logo-container {
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    .logo-container::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, var(--primary-green), transparent, var(--primary-green));
+      z-index: -1;
+      opacity: 0.7;
+      filter: blur(8px);
+    }
+
+    .logo-circle {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #000;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+    }
+
+    .logo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Countdown Timer Redesign */
+    .timer {
+      font-size: 72px;
+      font-weight: 900;
+      color: var(--primary-green);
+      line-height: 1;
+      margin: 10px 0 24px 0;
+      text-shadow: 0 0 30px var(--green-glow);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -2px;
+    }
+
+    /* Features List Styling */
+    .features-list {
+      list-style: none;
+      width: 100%;
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .features-list li {
+      font-size: 15px;
+      font-weight: 700;
+      color: #e2e8f0;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .features-list .sub-heading {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      color: var(--primary-green);
+      background: transparent;
+      border: none;
+      padding: 4px 0 0 0;
+      margin-top: 2px;
+    }
+
+    .features-list .highlight-text {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--primary-green);
+      background: rgba(0, 255, 102, 0.06);
+      border: 1px solid rgba(0, 255, 102, 0.2);
+    }
+
+    /* Promo Banner */
+    .promo-banner {
+      border: 1px solid rgba(255, 51, 102, 0.4);
+      color: #f87171;
+      background-color: rgba(255, 51, 102, 0.08);
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      width: 100%;
+      backdrop-filter: blur(4px);
+    }
+
+    .promo-banner a {
+      color: #ffffff;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* CTA Button Redesign */
+    .cta-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      background: linear-gradient(135deg, #00ff66 0%, #00cc52 100%);
+      color: #000000;
+      font-size: 18px;
+      font-weight: 800;
+      text-decoration: none;
+      padding: 18px 16px;
+      border-radius: 14px;
+      box-shadow: 0 8px 30px var(--green-glow);
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      letter-spacing: 0.5px;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 35px rgba(0, 255, 102, 0.6);
+    }
+
+    .cta-button:active {
+      transform: translateY(1px);
+    }
+
+    /* Footer Links */
+    .footer-links {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary-green);
+    }
+
+    /* Modals / Popups */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      z-index: 10;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .modal-content {
+      background: #0f172a;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 24px;
+      max-width: 400px;
+      width: 100%;
+      color: #cbd5e1;
+      position: relative;
+      text-align: left;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+    }
+
+    .modal-content h3 {
+      color: var(--primary-green);
+      margin-bottom: 12px;
+      font-size: 20px;
+    }
+
+    .modal-content p {
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 16px;
+      right: 18px;
+      font-size: 22px;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .close-btn:hover {
+      color: var(--text-main);
+    }
   </style>
 </head>
 <body>
-  <main class="container">
-    <span class="badge">100% Educational • Policy Safe</span>
-    <h1>Stock Market Basics – Join Free</h1>
-    <p class="sub">Learn index behaviour & risk management</p>
 
-    <div class="pill">🚫 No Buy/Sell Tips • ✅ For Learning Purpose Only</div>
+  <!-- Background Animation -->
+  <div class="bg-animation">
+    <div class="grid-overlay"></div>
+    
+    <svg class="chart-wave" viewBox="0 0 400 800" preserveAspectRatio="none">
+      <g class="candlestick" style="animation-delay: 0s;">
+        <rect x="60" y="250" width="10" height="150" fill="#00ff66" />
+        <line x1="65" y1="200" x2="65" y2="430" stroke="#00ff66" stroke-width="2" />
+      </g>
 
-    <ul class="bullets" aria-label="What you'll learn">
-      <li>• Chart basics & risk rules (no return promises)</li>
-      <li>• How to read trends without speculation</li>
-      <li>• Market discipline & common mistakes</li>
+      <g class="candlestick" style="animation-delay: 0.5s;">
+        <rect x="180" y="380" width="10" height="200" fill="#00ff66" />
+        <line x1="185" y1="320" x2="185" y2="610" stroke="#00ff66" stroke-width="2" />
+      </g>
+
+      <g class="candlestick" style="animation-delay: 1s;">
+        <rect x="300" y="180" width="10" height="280" fill="#00ff66" />
+        <line x1="305" y1="120" x2="305" y2="500" stroke="#00ff66" stroke-width="2" />
+      </g>
+
+      <path class="wave-path" d="M 0 550 Q 80 300, 160 500 T 320 250 T 400 150" />
+      
+      <text x="280" y="220" fill="#ffffff" opacity="0.08" font-size="32" font-weight="bold">22.10</text>
+      <text x="70" y="680" fill="#ffffff" opacity="0.08" font-size="32" font-weight="bold">10.75</text>
+    </svg>
+  </div>
+
+  <!-- MAIN LANDING PAGE CONTAINER -->
+  <div class="container">
+    <h1 class="main-title">The Trading Mentor ™️</h1>
+
+    <div class="logo-container">
+      <div class="logo-circle">
+        <img src="Mahira.jpeg" alt="Logo" class="logo-img">
+      </div>
+    </div>
+
+    <div class="timer" id="countdown">5</div>
+
+    <ul class="features-list">
+      <li>✅ SMC, Gold Forex, BTC Setups 🏆</li>
+      <li class="sub-heading">TODAY'S MARKET RESULTS</li>
+      <li>✅ Smart money Strategies $ tips</li>
+      <li style="margin-top: 2px;">🏆</li>
+      <li>✅ 5/5 EXPERT TRADING INSIGHTS TODAY</li>
+      <li class="highlight-text">Risk Management Guidancess 🏆</li>
     </ul>
 
-    <!-- CTA goes to a page-specific bridge -->
-    <a class="cta" href="bridge-lp33.html" rel="nofollow">Start Learning</a>
+    <div class="promo-banner">
+      📢 PAID PROMOTION: <a href="https://t.me/+56OKUJQwnOZlNjQ1" target="_blank">@ShriRam Media Agency</a>
+    </div>
 
-    <div class="safe"><span class="shield" aria-hidden="true"></span> Ad Policy Friendly Content</div>
+    <!-- Updated CTA Link -->
+    <a href="https://t.me/+DX2qgOIWWQYwMGVl" class="cta-button" target="_blank">
+      JOIN FREE CHANNEL 🚀
+    </a>
+  </div>
 
-    <p class="fineprint">We focus on concepts & frameworks suitable for beginners.</p>
-    <p class="disclaimer"><em>This website is for educational purposes only. We do not provide investment, trading, or financial advice.</em></p>
+  <!-- Footer Info Links -->
+  <div class="footer-links">
+    <a href="javascript:void(0)" onclick="openModal('modal-about')">About Us</a> | 
+    <a href="javascript:void(0)" onclick="openModal('modal-terms')">Terms</a> | 
+    <a href="javascript:void(0)" onclick="openModal('modal-disclaimer')">Disclaimer</a> | 
+    <a href="javascript:void(0)" onclick="openModal('modal-contact')">Contact Us</a>
+  </div>
 
-    <footer>© <span id="y"></span> Market Basics Learning Hub</footer>
-  </main>
+  <!-- MODALS / POPUPS -->
+  <div class="modal" id="modal-about">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('modal-about')">&times;</span>
+      <h3>About Us</h3>
+      <p>The Trading Mentor ™️ provides expert market insights, Smart Money Concept (SMC) setups, and educational tips for Forex, Gold, and BTC traders worldwide.</p>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-terms">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('modal-terms')">&times;</span>
+      <h3>Terms & Conditions</h3>
+      <p>By using our services, you agree that trading carries risks. All predictions and setups shared are for educational purposes only and not financial advice.</p>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-disclaimer">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('modal-disclaimer')">&times;</span>
+      <h3>Disclaimer</h3>
+      <p>Trading Forex, Crypto, and Stocks involves high risk. Never risk money you cannot afford to lose. Past performance does not guarantee future results.</p>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-contact">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('modal-contact')">&times;</span>
+      <h3>Contact Us</h3>
+      <p>For promos, support, or inquiries, reach out to us via Telegram support or through our official promotion partner link above.</p>
+    </div>
+  </div>
 
   <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
+    // Countdown timer auto-starts on page load
+    window.onload = function() {
+      startTimer();
+    };
+
+    function startTimer() {
+      let timeLeft = 5;
+      const timerElement = document.getElementById('countdown');
+
+      const interval = setInterval(() => {
+        timeLeft--;
+        if (timeLeft >= 0) {
+          timerElement.textContent = timeLeft;
+        } else {
+          clearInterval(interval);
+        }
+      }, 1000);
+    }
+
+    function openModal(id) {
+      document.getElementById(id).style.display = 'flex';
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
   </script>
+
 </body>
 </html>
